@@ -20,12 +20,38 @@ func webSocketHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Identyfikatorem jest IP klienta połączenia
+	ID := r.RemoteAddr
+
+	// Zarejestruj go w systemie
+	hubChannel <- &ctrlMessage{
+		ty:     msgAdd,
+		name:   ID,
+		txChan: conn,
+	}
+
+	// Jak funkcja się skończy (pętla poniżej), to rozrejestruj klienta
+	defer func() {
+		hubChannel <- &ctrlMessage{
+			ty:   msgRemove,
+			name: ID,
+		}
+	}()
+
 	for {
+		// Pętla pobierająca komunikaty od klienta
 		var msg rawMsg
 		err := conn.ReadJSON(&msg)
 		if err != nil {
 			log.Println(err)
 			return
+		}
+
+		if op, found := msg["op"]; found {
+			switch op {
+			case "rename":
+			case "msg":
+			}
 		}
 
 	}

@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -17,12 +16,12 @@ const (
 	msgAdd msgType = iota
 	msgRemove
 	msgMessage
+	msgRename
 )
 
 type message struct {
-	From  string
-	Data  string
-	Stamp time.Time
+	From string
+	Data string
 }
 
 type ctrlMessage struct {
@@ -33,7 +32,7 @@ type ctrlMessage struct {
 }
 
 var db = map[string]*websocket.Conn{}
-var hubChannel = make(chan ctrlMessage, 10)
+var hubChannel = make(chan *ctrlMessage, 10)
 
 func broadcast(msg rawMsg) {
 	for _, client := range db {
