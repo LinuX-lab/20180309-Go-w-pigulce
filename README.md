@@ -5,11 +5,12 @@ Przykład jednoplikowego serwera WWW, w którym zawartość jest osadzona w plik
 ## Potrzebne pakiety GO (trzy kropki **są** częścią nazwy pakietu):
 
 Opcje:
-* `-t` - instaluje też ewentualne pakiety zależne używane tylko do uruchamiania testów
-* `-u` - jeżeli pakiet jest już zainstalowany, to go aktualizauje albo reinstaluje
-* `-v` - tryb gadatliwy, wyświetka wykonywane czynności (np instalacja pakietów zależnych)
 
-```
+* `-t` instaluje też ewentualne pakiety zależne używane tylko do uruchamiania testów
+* `-u` jeżeli pakiet jest już zainstalowany, to go aktualizauje albo reinstaluje
+* `-v` tryb gadatliwy, wyświetka wykonywane czynności (np instalacja pakietów zależnych)
+
+```sh
 go get -t -v -u github.com/jteeuwen/go-bindata/...
 go get -t -v -u github.com/elazarl/go-bindata-assetfs/...
 go get -t -v -u github.com/gorilla/mux
